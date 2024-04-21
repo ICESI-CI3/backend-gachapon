@@ -34,31 +34,11 @@ export class UserService {
     return await this.userModule.findByIdAndDelete(id);
   }
 
-  async updateSelf(request: Request, updateUserDto: UpdateUserDto){
-    const token = request.headers.authorization?.split(' ')[1];
-    if (!token) {
-      throw new UnauthorizedException('Token not provided');
-    }
-
-    try {
-      const decoded: any = jwt.verify(token, jwtConstants.secret);
-      return await this.userModule.findByIdAndUpdate(decoded.userId, updateUserDto);
-    } catch (error) {
-      throw new UnauthorizedException('Invalid token');
-    }
+  async updateSelf(_id:Types.ObjectId, updateUserDto: UpdateUserDto){
+    return await this.userModule.findByIdAndUpdate(_id, updateUserDto);
   }
 
-  async removeSelf(request: Request){
-    const token = request.headers.authorization?.split(' ')[1];
-    if (!token) {
-      throw new UnauthorizedException('Token not provided');
-    }
-
-    try {
-      const decoded: any = jwt.verify(token, jwtConstants.secret);
-      return await this.userModule.findByIdAndDelete(decoded.userId);
-    } catch (error) {
-      throw new UnauthorizedException('Invalid token');
-    }
+  async removeSelf(_id:Types.ObjectId){
+    return await this.userModule.findByIdAndDelete(_id);
   }
 }
