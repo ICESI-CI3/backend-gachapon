@@ -13,11 +13,6 @@ export class GachaController {
     private gachaService: GachaService,
     ) {}
 
-  @Post()
-  create(@Body() createGachaDto: CreateGachaDto) {
-    return this.gachaService.create(createGachaDto);
-  }
-
   @Get('weapon1')
   @UseGuards(JwtAuthGuard, RolAuthGuard)
   @Roles(['PLAYER'])

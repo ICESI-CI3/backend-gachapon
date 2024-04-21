@@ -29,4 +29,8 @@ export class WeaponService {
   async remove(id: number) {
     return await this.weaponModule.findByIdAndDelete(id);
   }
+
+  async seedWeapon(createWeapon: Weapon[]){
+    await this.weaponModule.insertMany(createWeapon);
+  }
 }

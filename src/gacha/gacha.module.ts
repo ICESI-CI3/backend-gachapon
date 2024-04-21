@@ -5,10 +5,13 @@ import { Character, CharacterSchema } from 'src/character/schema/character.schem
 import { Weapon, WeaponSchema } from 'src/weapon/schema/weapon.schema';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from 'src/user/schema/user.schema';
+import { CharacterModule } from 'src/character/character.module';
+import { WeaponModule } from 'src/weapon/weapon.module';
+import { UserModule } from 'src/user/user.module';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{name: Character.name, schema: CharacterSchema}, {name: Weapon.name, schema: WeaponSchema}, {name: User.name, schema: UserSchema}]),
+    CharacterModule,WeaponModule,UserModule
   ],
   controllers: [GachaController],
   providers: [GachaService],

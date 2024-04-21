@@ -6,4 +6,6 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
     @IsNotEmpty()
     @IsUUID()
     id:UUID;
+
+    'almanac': any[][];
 }

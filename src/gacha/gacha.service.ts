@@ -11,13 +11,16 @@ import { isInstance } from 'class-validator';
 import { Request } from 'express';
 import { jwtConstants } from 'src/auth/jwt.constants';
 import * as jwt from 'jsonwebtoken';
+import { CharacterService } from 'src/character/character.service';
+import { WeaponService } from 'src/weapon/weapon.service';
+import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class GachaService {
   constructor(
-    @InjectModel(Character.name) private readonly characterModel: Model<CharacterDocument>,
-    @InjectModel(Weapon.name) private readonly weaponModel: Model<WeaponDocument>,
-    @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
+    private readonly characterService: CharacterService,
+    private readonly weaponService: WeaponService,
+    private readonly userService: UserService,
   ){}
 
   create(createGachaDto: CreateGachaDto) {
@@ -37,18 +40,18 @@ export class GachaService {
   }
 
   async getOneCharacter(){
-    let options:any[] = await this.characterModel.find({});
+    let options:any[] = await this.characterService.findAll();
     let prob=randomInt(0, 1000);
     if(prob<=6){
       options=options.filter((char)=>char.rarity==5);
     }else{
       if(prob<=54){
         options=options.filter((char)=>char.rarity==4);
-        let weapons=await this.weaponModel.find({});
+        let weapons=await this.weaponService.findAll();
         weapons=weapons.filter((obj)=>obj.rarity==4);
         options=[...options, ...weapons];
       }else{
-        options=await this.weaponModel.find({})
+        options=await this.weaponService.findAll();
         console.log(options);
         options=options.filter((obj)=>obj.rarity==3);
       }
@@ -70,18 +73,18 @@ export class GachaService {
   }
 
   async getOneWeapon(){
-    let options:any[] = await this.weaponModel.find({});
+    let options:any[] = await this.weaponService.findAll();
     let prob=randomInt(0, 1000);
     if(prob<=6){
       options=options.filter((char)=>char.rarity==5);
     }else{
       if(prob<=54){
         options=options.filter((char)=>char.rarity==4);
-        let weapons=await this.weaponModel.find({});
+        let weapons=await this.weaponService.findAll();
         weapons=weapons.filter((obj)=>obj.rarity==4);
         options=[...options, ...weapons];
       }else{
-        options=await this.weaponModel.find({})
+        options=await this.weaponService.findAll();
         console.log(options);
         options=options.filter((obj)=>obj.rarity==3);
         console.log(options);
@@ -109,7 +112,7 @@ export class GachaService {
 
     try {
       const decoded: any = jwt.verify(token, jwtConstants.secret);
-      const user = await this.userModel.findById(decoded.userId);
+      const user = await this.userService.findOne(decoded.userId);
       const almanac = user.almanac;
       elements.forEach(element => {
         if(element instanceof Weapon ){
@@ -118,7 +121,7 @@ export class GachaService {
           almanac[1].push(element);
         }
       });
-      return await this.userModel.findByIdAndUpdate(decoded.userId, {'almanac':almanac});
+      return await this.userService.update(decoded.userId, {id:decoded.userId, 'almanac':almanac});
     } catch (error) {
       throw new UnauthorizedException('Invalid token');
     }

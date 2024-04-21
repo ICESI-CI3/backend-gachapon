@@ -1,4 +1,6 @@
-[
+import { Weapon } from '../../weapon/schema/weapon.schema';
+
+export const weaponSeed: Weapon[]=[
     {
         "name":"Aqua Simulacra",
         "type":"BOW",

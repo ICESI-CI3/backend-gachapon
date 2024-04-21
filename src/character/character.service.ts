@@ -36,4 +36,8 @@ export class CharacterService {
   async remove(id: string) {
     return await this.characterModule.findByIdAndDelete(id);
   }
+
+  async seedCharacter(createCharacter: Character[]){
+    await this.characterModule.insertMany(createCharacter);
+  }
 }

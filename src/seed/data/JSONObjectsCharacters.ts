@@ -1,8 +1,10 @@
-[
+import { Character } from "src/character/schema/character.schema";
+
+export const characterSeed: Character[] =[
     {
         "name":"Yelan",
         "element":"HYDRO",
-        "weapon":"Bow",
+        "weapon":null,
         "rarity":5,
         "constellation":0,
         "level":90,
@@ -11,7 +13,7 @@
     {
         "name":"Kaedehara Kazuha",
         "element":"ANEMO",
-        "weapon":"Sword",
+        "weapon":null,
         "rarity":5,
         "constellation":0,
         "level":90,
@@ -20,7 +22,7 @@
     {
         "name":"Shenhe",
         "element":"CRYO",
-        "weapon":"Polearm",
+        "weapon":null,
         "rarity":5,
         "constellation":0,
         "level":90,
@@ -29,7 +31,7 @@
     {
         "name":"Ganyu",
         "element":"CRYO",
-        "weapon":"Bow",
+        "weapon":null,
         "rarity":5,
         "constellation":0,
         "level":90,
@@ -38,7 +40,7 @@
     {
         "name":"Xiao",
         "element":"ANEMO",
-        "weapon":"Polearm",
+        "weapon":null,
         "rarity":5,
         "constellation":0,
         "level":90,
@@ -47,7 +49,7 @@
     {
         "name":"Lisa",
         "element":"ELECTRO",
-        "weapon":"Catalyst",
+        "weapon":null,
         "rarity":4,
         "constellation":0,
         "level":90,
@@ -56,7 +58,7 @@
     {
         "name":"Bennett",
         "element":"PYRO",
-        "weapon":"Sword",
+        "weapon":null,
         "rarity":4,
         "constellation":0,
         "level":90,
@@ -65,7 +67,7 @@
     {
         "name":"Diona",
         "element":"CRYO",
-        "weapon":"Bow",
+        "weapon":null,
         "rarity":4,
         "constellation":0,
         "level":90,
@@ -74,7 +76,7 @@
     {
         "name":"Fischl",
         "element":"ELECTRO",
-        "weapon":"Bow",
+        "weapon":null,
         "rarity":4,
         "constellation":0,
         "level":90,
@@ -83,7 +85,7 @@
     {
         "name":"Xingchiu",
         "element":"HYDRO",
-        "weapon":"Sword",
+        "weapon":null,
         "rarity":4,
         "constellation":0,
         "level":90,
