@@ -19,13 +19,7 @@ export class CharacterService {
   }
 
   async findOne(id: string) {
-    let character = {}
-    try{
-      character=await this.characterModule.findById(id);
-      return character;
-    }catch(Error){
-      throw new NotFoundException(`Character with id ${id} not found`);
-    } 
+    return await this.characterModule.findById(id);
   }
 
   async update(id: string, updateCharacterDto: UpdateCharacterDto) {

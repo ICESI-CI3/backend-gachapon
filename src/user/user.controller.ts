@@ -1,11 +1,11 @@
-import { Controller, Get, Post, Body, Param, Delete, UseGuards, Put, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, UseGuards, Put } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { JwtAuthGuard, RolAuthGuard } from 'src/auth/jwt-auth.guard';
-import { Roles } from 'src/decorator/rol.decorator';
-import { Request } from 'express';
-import { GetUser } from './decorators/get-user.decorator';
+import { JwtAuthGuard, RolAuthGuard } from '../auth/jwt-auth.guard';
+import { Roles } from '../decorator/rol.decorator';
+import { GetUser } from '../decorator/get-user.decorator';
+import { Types } from 'mongoose';
 
 @Controller('user')
 export class UserController {
@@ -47,14 +47,14 @@ export class UserController {
   @Put('self')
   @UseGuards(JwtAuthGuard, RolAuthGuard)
   @Roles(['ADMIN', 'PLAYER'])
-  updateSelf(@GetUser('_id') _id: any, @Body() updateUserDto: UpdateUserDto) {
+  updateSelf(@GetUser('_id') _id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.updateSelf(_id, updateUserDto);
   }
 
   @Delete('self')
   @UseGuards(JwtAuthGuard, RolAuthGuard)
   @Roles(['ADMIN', 'PLAYER'])
-  removeSelf(@GetUser('_id') _id: any) {
+  removeSelf(@GetUser('_id') _id: string) {
     return this.userService.removeSelf(_id);
   }
 

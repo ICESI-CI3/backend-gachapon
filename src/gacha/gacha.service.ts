@@ -1,19 +1,14 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateGachaDto } from './dto/create-gacha.dto';
 import { UpdateGachaDto } from './dto/update-gacha.dto';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { Character, CharacterDocument } from 'src/character/schema/character.schema';
-import { Weapon, WeaponDocument } from 'src/weapon/schema/weapon.schema';
+import { Character } from '../character/schema/character.schema';
+import { Weapon } from '../weapon/schema/weapon.schema';
 import { randomInt } from 'crypto';
-import { User, UserDocument } from 'src/user/schema/user.schema';
-import { isInstance } from 'class-validator';
-import { Request } from 'express';
-import { jwtConstants } from 'src/auth/jwt.constants';
-import * as jwt from 'jsonwebtoken';
-import { CharacterService } from 'src/character/character.service';
-import { WeaponService } from 'src/weapon/weapon.service';
-import { UserService } from 'src/user/user.service';
+import { CharacterService } from '../character/character.service';
+import { WeaponService } from '../weapon/weapon.service';
+import { UserService } from '../user/user.service';
+import { UpdateUserDto } from '../user/dto/update-user.dto';
+import Rol from '../user/entities/user.rol';
 
 @Injectable()
 export class GachaService {
@@ -104,26 +99,24 @@ export class GachaService {
     return result;
   }
 
-  async addToAlmanac(request:Request, elements: any[]){
-    const token = request.headers.authorization?.split(' ')[1];
-    if (!token) {
-      throw new UnauthorizedException('Token not provided');
-    }
+  async addToAlmanac(id:string, elements: any[]){
+    const user = await this.userService.findOne(id);
+    const almanac = user.almanac;
+    elements.forEach(element => {
+      if (element instanceof Weapon ) {
+        almanac[0].push(element);
+      } else if (element instanceof Character) {
+        almanac[1].push(element);
+      }
+    });
+    const updateUser = new UpdateUserDto();
+    updateUser._id = id;
+    updateUser.almanac = almanac;
+    updateUser.email = user.email;
+    updateUser.password = user.password;
+    updateUser.rol = user.rol as Rol;
+    updateUser.username = user.username;
 
-    try {
-      const decoded: any = jwt.verify(token, jwtConstants.secret);
-      const user = await this.userService.findOne(decoded.userId);
-      const almanac = user.almanac;
-      elements.forEach(element => {
-        if(element instanceof Weapon ){
-          almanac[0].push(element);
-        }else if(element instanceof Character){
-          almanac[1].push(element);
-        }
-      });
-      return await this.userService.update(decoded.userId, {id:decoded.userId, 'almanac':almanac});
-    } catch (error) {
-      throw new UnauthorizedException('Invalid token');
-    }
+    return await this.userService.update(id, updateUser);
   }
 }

@@ -5,6 +5,9 @@ import Rol from "../entities/user.rol";
 export class CreateUserDto {
 
     @IsNotEmpty()
+    _id: string;
+
+    @IsNotEmpty()
     email: string;
 
     @IsNotEmpty()

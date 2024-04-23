@@ -9,14 +9,17 @@ export type CharacterDocument = Character & Document;
 @Schema()
 export class Character{
 
+  @Prop({auto:true})
+  _id: string
+
   @Prop({unique:true})
   name:string;
 
   @Prop({ enum: Element })
   element:string;
 
-  @Prop({ type: Types.ObjectId, ref: 'Weapon' })
-  weapon: Types.ObjectId;
+  @Prop({ ref: 'Weapon' })
+  weapon: string;
 
   @Prop()
   rarity:number;

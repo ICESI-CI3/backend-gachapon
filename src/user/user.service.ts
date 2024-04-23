@@ -4,10 +4,6 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User, UserDocument } from './schema/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Request } from 'express';
-import { UnauthorizedException } from '@nestjs/common';
-import { jwtConstants } from '../auth/jwt.constants';
-import * as jwt from 'jsonwebtoken';
 
 @Injectable()
 export class UserService {
@@ -23,22 +19,22 @@ export class UserService {
   }
 
   async findOne(id: string) {
-    return await this.userModule.findById(id);
+    return await this.userModule.findById(id).exec();
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
-    return  await this.userModule.findByIdAndUpdate(id,updateUserDto);
+    return await this.userModule.findByIdAndUpdate(id,updateUserDto);
   }
 
   async remove(id: string) {
     return await this.userModule.findByIdAndDelete(id);
   }
 
-  async updateSelf(_id:Types.ObjectId, updateUserDto: UpdateUserDto){
+  async updateSelf(_id:string, updateUserDto: UpdateUserDto){
     return await this.userModule.findByIdAndUpdate(_id, updateUserDto);
   }
 
-  async removeSelf(_id:Types.ObjectId){
+  async removeSelf(_id:string){
     return await this.userModule.findByIdAndDelete(_id);
   }
 }

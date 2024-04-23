@@ -3,8 +3,8 @@ import { CharacterService } from './character.service';
 import { CreateCharacterDto } from './dto/create-character.dto';
 import { UpdateCharacterDto } from './dto/update-character.dto';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard, RolAuthGuard } from 'src/auth/jwt-auth.guard';
-import { Roles } from 'src/decorator/rol.decorator';
+import { JwtAuthGuard, RolAuthGuard } from '../auth/jwt-auth.guard';
+import { Roles } from '../decorator/rol.decorator';
 
 @Controller('character')
 export class CharacterController {

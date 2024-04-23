@@ -2,6 +2,7 @@ import { Character } from "src/character/schema/character.schema";
 
 export const characterSeed: Character[] =[
     {
+        "_id": "1",
         "name":"Yelan",
         "element":"HYDRO",
         "weapon":null,
@@ -11,6 +12,7 @@ export const characterSeed: Character[] =[
         "img":"https://static.wikia.nocookie.net/gen-impact/images/d/d8/Carta_de_personaje_Yelan.png/revision/latest?cb=20220328101737&path-prefix=es"
     },
     {
+        "_id": "2",
         "name":"Kaedehara Kazuha",
         "element":"ANEMO",
         "weapon":null,
@@ -20,6 +22,7 @@ export const characterSeed: Character[] =[
         "img":"https://static.wikia.nocookie.net/gen-impact/images/a/a5/Carta_de_personaje_Kaedehara_Kazuha.png/revision/latest?cb=20210607112352&path-prefix=es"
     },
     {
+        "_id": "3",
         "name":"Shenhe",
         "element":"CRYO",
         "weapon":null,
@@ -29,6 +32,7 @@ export const characterSeed: Character[] =[
         "img":"https://static.wikia.nocookie.net/gen-impact/images/b/b4/Carta_de_personaje_Shenhe.png/revision/latest?cb=20211122100235&path-prefix=es"
     },
     {
+        "_id": "4",
         "name":"Ganyu",
         "element":"CRYO",
         "weapon":null,
@@ -38,6 +42,7 @@ export const characterSeed: Character[] =[
         "img":"https://static.wikia.nocookie.net/gen-impact/images/2/24/Ganyu_Card.png/revision/latest?cb=20210303042915&path-prefix=es"
     },
     {
+        "_id": "5",
         "name":"Xiao",
         "element":"ANEMO",
         "weapon":null,
@@ -47,6 +52,7 @@ export const characterSeed: Character[] =[
         "img":"https://static.wikia.nocookie.net/gen-impact/images/7/7f/Xiao_Card.png/revision/latest?cb=20210303043521&path-prefix=es"
     },
     {
+        "_id": "6",
         "name":"Lisa",
         "element":"ELECTRO",
         "weapon":null,
@@ -56,6 +62,7 @@ export const characterSeed: Character[] =[
         "img":"https://static.wikia.nocookie.net/gen-impact/images/a/a8/Lisa_Card.png/revision/latest?cb=20210303043230&path-prefix=es"
     },
     {
+        "_id": "7",
         "name":"Bennett",
         "element":"PYRO",
         "weapon":null,
@@ -65,6 +72,7 @@ export const characterSeed: Character[] =[
         "img":"https://static.wikia.nocookie.net/gen-impact/images/c/c5/Bennett_Card.png/revision/latest?cb=20210303042721&path-prefix=es"
     },
     {
+        "_id": "8",
         "name":"Diona",
         "element":"CRYO",
         "weapon":null,
@@ -74,6 +82,7 @@ export const characterSeed: Character[] =[
         "img":"https://static.wikia.nocookie.net/gen-impact/images/1/14/Diona_Card.png/revision/latest?cb=20210303042815&path-prefix=es"
     },
     {
+        "_id": "9",
         "name":"Fischl",
         "element":"ELECTRO",
         "weapon":null,
@@ -83,6 +92,7 @@ export const characterSeed: Character[] =[
         "img":"https://static.wikia.nocookie.net/gen-impact/images/5/54/Fischl_Card.png/revision/latest?cb=20210303042840&path-prefix=es"
     },
     {
+        "_id": "10",
         "name":"Xingchiu",
         "element":"HYDRO",
         "weapon":null,

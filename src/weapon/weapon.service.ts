@@ -18,15 +18,15 @@ export class WeaponService {
     return await this.weaponModule.find({});
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     return await this.weaponModule.findById(id);
   }
 
-  async update(id: number, updateWeaponDto: UpdateWeaponDto) {
+  async update(id: string, updateWeaponDto: UpdateWeaponDto) {
     return await this.weaponModule.findByIdAndUpdate(id,updateWeaponDto);
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     return await this.weaponModule.findByIdAndDelete(id);
   }
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CharacterService } from 'src/character/character.service';
-import { WeaponService } from 'src/weapon/weapon.service';
+import { CharacterService } from '../character/character.service';
+import { WeaponService } from '../weapon/weapon.service';
 import {characterSeed} from './data/JSONObjectsCharacters';
 import {weaponSeed} from './data/JSONObjectsWeapons';
 
