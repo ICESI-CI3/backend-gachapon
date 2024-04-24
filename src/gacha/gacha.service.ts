@@ -108,7 +108,6 @@ export class GachaService {
       }
     });
     const updateUser = new UpdateUserDto();
-    updateUser._id = id;
     updateUser.almanac = almanac;
     updateUser.email = user.email;
     updateUser.password = user.password;
