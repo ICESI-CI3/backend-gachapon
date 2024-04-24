@@ -62,9 +62,10 @@ describe('AuthController', () => {
       const userObject = new CreateUserDto();
       userObject.email = RegisterDTOStub().email;
       userObject.username = RegisterDTOStub().username;
-      userObject.password = plainToHash;
+      userObject.password = password;
       userObject.rol = Rol.PLAYER;
-      await (new userModel(userObject).save());
+      await (authController.registerUser(userObject));
+
       const data = await authController.loginUser(LoginDTOStub());
       expect(data.user.username).toBe(RegisterDTOStub().username);
     });
