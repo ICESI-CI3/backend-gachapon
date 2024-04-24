@@ -101,12 +101,15 @@ describe('AppController', () => {
       const res3=await request(app.getHttpServer()).get('/gacha/character1').set('Authorization', 'Bearer '+token);
       expect(res3.status).toBe(200);
       expect(res3.body.length).toBe(1);
+    });
+
+    it('should return an array of characters', async () => {
+      let res2=await request(app.getHttpServer()).post('/auth/login').send({username: "player2", password:"1234"});
+      expect(res2.status).toBe(201);
+      let token=res2.body.token;
       const res4=await request(app.getHttpServer()).get('/gacha/character10').set('Authorization', 'Bearer '+token);
       expect(res4.status).toBe(200);
       expect(res4.body.length).toBe(10);
-      
-
-
     });
 
     it('should return an array of characters', async () => {
@@ -116,6 +119,12 @@ describe('AppController', () => {
       const res5=await request(app.getHttpServer()).get('/gacha/weapon1').set('Authorization', 'Bearer '+token);
       expect(res5.status).toBe(200);
       expect(res5.body.length).toBe(1);
+    });
+
+    it('should return an array of characters', async () => {
+      let res2=await request(app.getHttpServer()).post('/auth/login').send({username: "player2", password:"1234"});
+      expect(res2.status).toBe(201);
+      let token=res2.body.token;
       const res6=await request(app.getHttpServer()).get('/gacha/weapon10').set('Authorization', 'Bearer '+token);
       expect(res6.status).toBe(200);
       expect(res6.body.length).toBe(10);
