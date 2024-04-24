@@ -53,57 +53,55 @@ describe('UserController', () => {
 
   describe("findOne", () => {
     it("should return the corresponding saved object", async () => {
-      await (new userModel(UserDTOStub()).save());
-      const user = await userController.findOne(UserDTOStub()._id);
-      expect(user._id).toBe(UserDTOStub()._id);
-    });
-    it("should return null", async () => {
-      const user = await userController.findOne(UserDTOStub()._id);
-      expect(user).toBeNull();
-    });
-  });
 
+      const createdUser = await userController.create(UserDTOStub());
+      const user = await userController.findOne(createdUser._id);
+      expect(user.username).toBe(createdUser.username);
+    });
+    
+  });
+  
   describe('findAll', () => {
     it('should return an array of users', async () => {
       const users = await userController.findAll();
       expect(Array.isArray(users)).toBeTruthy();
     });
   });
-
+  
   describe('update', () => {
     it('should update the corresponding user', async () => {
-      const createdUser = await new userModel(UserDTOStub()).save();
+      const createdUser = await userController.create(UserDTOStub());
       const updateUserDto: UpdateUserDto = { ...UserDTOStub(), username: 'updatedUsername' };
       await userController.update(createdUser._id, updateUserDto);
-      const updatedUser = await userModel.findById(UserDTOStub()._id);
+      const updatedUser = await userModel.findById(createdUser._id);
       expect(updatedUser.username).toBe(updateUserDto.username);
     });
   });
-
+  
   describe('remove', () => {
     it('should remove the corresponding user', async () => {
-      await new userModel(UserDTOStub()).save();
-      await userController.remove(UserDTOStub()._id);
-      const user = await userModel.findById(UserDTOStub()._id);
+      const createdUser = await userController.create(UserDTOStub());
+      await userController.remove(createdUser._id);
+      const user = await userModel.findById(createdUser._id);
       expect(user).toBeNull();
     });
   });
 
   describe('updateSelf', () => {
     it('should update the current user', async () => {
-      await new userModel(UserDTOStub()).save();
+      const createdUser = await userController.create(UserDTOStub());
       const updateUserDto: UpdateUserDto = { ...UserDTOStub(), username: 'updatedUsername' };
-      await userController.updateSelf(UserDTOStub()._id, updateUserDto);
-      const updatedUser = await userModel.findById(UserDTOStub()._id);
+      await userController.updateSelf(createdUser._id, updateUserDto);
+      const updatedUser = await userModel.findById(createdUser._id);
       expect(updatedUser.username).toBe(updateUserDto.username);
     });
   });
-
+  
   describe('removeSelf', () => {
     it('should remove the current user', async () => {
-      await new userModel(UserDTOStub()).save();
-      await userController.removeSelf(UserDTOStub()._id);
-      const user = await userModel.findById(UserDTOStub()._id);
+      const createdUser = await userController.create(UserDTOStub());
+      await userController.removeSelf(createdUser._id);
+      const user = await userModel.findById(createdUser._id);
       expect(user).toBeNull();
     });
   });

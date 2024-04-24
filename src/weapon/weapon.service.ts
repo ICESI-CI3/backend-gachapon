@@ -35,6 +35,7 @@ export class WeaponService {
   }
 
   async getByName(nameT: string){
+    const res=await this.weaponModule.find({name: nameT});
     return await this.weaponModule.find({name: nameT});
   }
 }

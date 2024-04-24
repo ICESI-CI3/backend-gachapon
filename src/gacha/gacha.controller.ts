@@ -15,15 +15,13 @@ export class GachaController {
   @UseGuards(JwtAuthGuard, RolAuthGuard)
   @Roles(['PLAYER'])
   async getOneWeapon(@GetUser('_id') _id: string){
-    const result = await this.gachaService.getOneWeapon();
-    return this.gachaService.addToAlmanac(_id, result);
+    return await this.gachaService.getOneWeapon(_id);
   }
   @Get('weapon10')
   @UseGuards(JwtAuthGuard, RolAuthGuard)
   @Roles(['PLAYER'])
   async getTenWeapons(@GetUser('_id') _id: string){
-    const result = await this.gachaService.getTenWeapons();
-    return this.gachaService.addToAlmanac(_id, result);
+    return await this.gachaService.getTenWeapons(_id);
 
   }
 
@@ -31,16 +29,14 @@ export class GachaController {
   @UseGuards(JwtAuthGuard, RolAuthGuard)
   @Roles(['PLAYER'])
   async getOneCharacter(@GetUser('_id') _id: string){
-    const result = await this.gachaService.getOneCharacter();
-    return this.gachaService.addToAlmanac(_id, result);
-
+    return await this.gachaService.getOneCharacter(_id);
   }
+
   @Get('character10')
   @UseGuards(JwtAuthGuard, RolAuthGuard)
   @Roles(['PLAYER'])
   async getTenCharacter(@GetUser('_id') _id: string){
-    const result = await this.gachaService.getTenCharacters();
-    return this.gachaService.addToAlmanac(_id, result);
+    return await this.gachaService.getTenCharacters(_id);
 
   }
 

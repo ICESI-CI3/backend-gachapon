@@ -44,4 +44,10 @@ export class WeaponController {
   remove(@Param('id') id: string) {
     return this.weaponService.remove(id);
   }
+
+  @Get('name/:name')
+  getByName(@Param('name') name: string) {
+    console.log(name)
+    return this.weaponService.getByName(name);
+  }
 }

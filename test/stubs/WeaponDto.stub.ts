@@ -4,8 +4,6 @@ import Type from "../../src/weapon/entities/type";
 export const WeaponDTOStub = (): UpdateWeaponDto => {
   return {
 
-    _id: 'testId',
-
     name: 'testName',
 
     type: Type.SWORD,

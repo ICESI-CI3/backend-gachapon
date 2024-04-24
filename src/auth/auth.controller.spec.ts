@@ -11,6 +11,8 @@ import Rol from '../user/entities/user.rol';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { HttpException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { JwtModule } from '@nestjs/jwt';
+import { jwtConstants } from './jwt.constants';
 
 describe('AuthController', () => {
   let authController: AuthController;
@@ -27,9 +29,14 @@ describe('AuthController', () => {
       controllers: [AuthController],
       providers: [
         AuthService,
-        JwtService,
         {provide: getModelToken(User.name), useValue: userModel},
       ],
+      imports: [
+        JwtModule.register({
+        secret: jwtConstants.secret,
+        signOptions: { expiresIn: '20h' },
+      })
+    ]
     }).compile();
     authController = moduleRef.get<AuthController>(AuthController);
   });

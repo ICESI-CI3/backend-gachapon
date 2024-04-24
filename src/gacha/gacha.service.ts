@@ -34,7 +34,7 @@ export class GachaService {
     return `This action removes a #${id} gacha`;
   }
 
-  async getOneCharacter(){
+  async getOneCharacter(id : string){
     let options:any[] = await this.characterService.findAll();
     let prob=randomInt(0, 1000);
     if(prob<=6){
@@ -54,19 +54,19 @@ export class GachaService {
 
     let result:any[]=[]
     result.push(options[prob]);
-
+    this.addToAlmanac(id, result);
     return result;
   }
 
-  async getTenCharacters(){
+  async getTenCharacters(id : string){
     let result:any[]=[]
     for(let i=0;i<10;i++){
-      result.push(await this.getOneCharacter());
+      result.push(await this.getOneCharacter(id));
     }
     return result;
   }
 
-  async getOneWeapon(){
+  async getOneWeapon(id : string){
     let options:any[] = await this.weaponService.findAll();
     let prob=randomInt(0, 1000);
     if(prob<=6){
@@ -85,26 +85,25 @@ export class GachaService {
     prob=randomInt(0, options.length-1);
     let result:any[]=[]
     result.push(options[prob]);
+    this.addToAlmanac(id, result);
     return result;
   }
 
-  async getTenWeapons(){
+  async getTenWeapons(id : string){
     let result:any[]=[]
     for(let i=0;i<10;i++){
-      result.push(await this.getOneWeapon());
+      result.push(await this.getOneWeapon(id));
     }
     return result;
   }
 
   async addToAlmanac(id:string, elements: any[]){
     const user = await this.userService.findOne(id);
-    const almanac = user.almanac;
-    elements.forEach(async element => {
+    let almanac = user.almanac;
+    elements.forEach(element => {
       if (element.subStats) {
-        console.log(element);
         almanac[0].push(element);
-      } else if (element.constellation) {
-        console.log(element);
+      } else if (element.constellation==0) {
         almanac[1].push(element);
       }
     });

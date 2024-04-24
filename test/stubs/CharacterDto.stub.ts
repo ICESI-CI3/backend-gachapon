@@ -3,7 +3,6 @@ import Element from '../../src/character/entities/Element';
 
 export const CharacterDTOStub = (): UpdateCharacterDto => {
   return {
-    _id: 'testId',
 
     name: 'testName',
 

@@ -49,12 +49,13 @@ describe('CharacterController', () => {
       expect(createdCharacter.name).toBe(CharacterDTOStub().name);
     });
   });
-
+  
   describe('findOne', () => {
     it('should return the corresponding saved object', async () => {
       const createdCharacter = await new characterModel(CharacterDTOStub()).save();
-      const character = await characterController.findOne(createdCharacter._id);
-      expect(character._id).toBe(createdCharacter._id);
+      const character = await characterController.findOne(createdCharacter._id.toHexString());
+
+      expect(character.name).toBe(createdCharacter.name);
     });
   });
 
@@ -72,7 +73,7 @@ describe('CharacterController', () => {
         ...CharacterDTOStub(),
         name: 'updatedName',
       };
-      await characterController.update(createdCharacter._id, updateCharacterDto);
+      await characterController.update(createdCharacter._id.toHexString(), updateCharacterDto);
       const updatedCharacter = await characterModel.findById(createdCharacter._id);
       expect(updatedCharacter.name).toBe(updateCharacterDto.name);
     });
@@ -81,7 +82,7 @@ describe('CharacterController', () => {
   describe('remove', () => {
     it('should remove the corresponding weapon', async () => {
       const createdCharacter = await new characterModel(CharacterDTOStub()).save();
-      await characterController.remove(createdCharacter._id);
+      await characterController.remove(createdCharacter._id.toHexString());
       const character = await characterModel.findById(createdCharacter._id);
       expect(character).toBeNull();
     });

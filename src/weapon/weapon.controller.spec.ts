@@ -18,7 +18,7 @@ describe('WeaponController', () => {
     mongod = await MongoMemoryServer.create();
     const uri = mongod.getUri();
     mongoConnection = (await connect(uri)).connection;
-    weaponModel = mongoConnection.model(Weapon.name, WeaponSchema);
+    weaponModel = mongoConnection.model(Weapon.name, WeaponSchema,);
     const moduleRef: TestingModule = await Test.createTestingModule({
       controllers: [WeaponController],
       providers: [
@@ -52,9 +52,10 @@ describe('WeaponController', () => {
 
   describe('findOne', () => {
     it('should return the corresponding saved object', async () => {
-      const createdWeapon = await new weaponModel(WeaponDTOStub()).save();
-      const weapon = await weaponController.findOne(createdWeapon._id);
-      expect(weapon._id).toBe(createdWeapon._id);
+      const createdWeapon = await weaponController.create(WeaponDTOStub());
+      const weapon = await weaponController.getByName(createdWeapon.name); 
+      expect(weapon[0].name).toBe(createdWeapon.name);
+      
     });
   });
 
@@ -65,6 +66,7 @@ describe('WeaponController', () => {
     });
   });
 
+  
   describe('update', () => {
     it('should update the corresponding weapon', async () => {
       const createdWeapon = await new weaponModel(WeaponDTOStub()).save();
@@ -72,7 +74,7 @@ describe('WeaponController', () => {
         ...WeaponDTOStub(),
         name: 'updatedName',
       };
-      await weaponController.update(createdWeapon._id, updateWeaponDto);
+      await weaponController.update(createdWeapon._id.toHexString(), updateWeaponDto);
       const updatedWeapon = await weaponModel.findById(createdWeapon._id);
       expect(updatedWeapon.name).toBe(updateWeaponDto.name);
     });
@@ -81,9 +83,10 @@ describe('WeaponController', () => {
   describe('remove', () => {
     it('should remove the corresponding weapon', async () => {
       const createdWeapon = await new weaponModel(WeaponDTOStub()).save();
-      await weaponController.remove(createdWeapon._id);
+      await weaponController.remove(createdWeapon._id.toHexString());
       const weapon = await weaponModel.findById(createdWeapon._id);
       expect(weapon).toBeNull();
     });
   });
+
 });

@@ -44,4 +44,6 @@ export class CharacterController {
   remove(@Param('id') id: string) {
     return this.characterService.remove(id);
   }
+
+  
 }
