@@ -100,19 +100,10 @@ export class GachaService {
     const user = await this.userService.findOne(id);
     const almanac = user.almanac;
     elements.forEach(async element => {
-      let elementToSave;
-      console.log(element);
-      try{
-        elementToSave = await this.weaponService.findOne(element._id);
-        elementToSave = await this.characterService.findOne(element._id);
-        console.log("elementToSave");
-      }catch(e){
-        
-      }
-      if (element instanceof Weapon ) {
+      if (element.subStats) {
         console.log(element);
         almanac[0].push(element);
-      } else if (element instanceof Character) {
+      } else if (element.constellation) {
         console.log(element);
         almanac[1].push(element);
       }

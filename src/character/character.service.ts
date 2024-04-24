@@ -19,9 +19,6 @@ export class CharacterService {
   }
 
   async findOne(id: string) {
-    console.log(id);
-    const res=await this.characterModule.findById(id)
-    console.log(res);
     return await this.characterModule.findById(id);
   }
 

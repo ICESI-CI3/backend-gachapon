@@ -19,9 +19,6 @@ export class WeaponService {
   }
 
   async findOne(id: string) {
-    console.log("Weapon "+id);
-    const res=await this.weaponModule.findById(id)
-    console.log(res);
     return await this.weaponModule.findById(id);
   }
 

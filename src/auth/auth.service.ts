@@ -26,6 +26,7 @@ export class AuthService {
     userObject.rol = Rol.PLAYER;
     const id = new Types.ObjectId();
     userObject._id = id.toHexString();
+    userObject.almanac = [[], []];
 
     return this.userModel.create(userObject);
   }
