@@ -19,6 +19,9 @@ export class WeaponService {
   }
 
   async findOne(id: string) {
+    console.log("Weapon "+id);
+    const res=await this.weaponModule.findById(id)
+    console.log(res);
     return await this.weaponModule.findById(id);
   }
 
@@ -32,5 +35,9 @@ export class WeaponService {
 
   async seedWeapon(createWeapon: Weapon[]){
     await this.weaponModule.insertMany(createWeapon);
+  }
+
+  async getByName(nameT: string){
+    return await this.weaponModule.find({name: nameT});
   }
 }

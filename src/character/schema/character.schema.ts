@@ -9,9 +9,6 @@ export type CharacterDocument = Character & Document;
 @Schema()
 export class Character{
 
-  @Prop({auto:true})
-  _id: string
-
   @Prop({unique:true})
   name:string;
 

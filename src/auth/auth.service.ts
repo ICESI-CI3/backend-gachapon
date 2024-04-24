@@ -42,7 +42,6 @@ export class AuthService {
     const payload = {id: findUser._id, username: findUser.username,rol: findUser.rol};
     
     const token = await this.jwtService.sign(payload);
-    console.log(token);
     const data = {
       user: findUser,
       token, 

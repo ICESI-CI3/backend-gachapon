@@ -7,8 +7,6 @@ export type WeaponDocument = Weapon & Document;
 
 @Schema()
 export class Weapon {
-  @Prop({ auto: true })
-  _id: string;
 
   @Prop({ unique: true })
   name: string;
