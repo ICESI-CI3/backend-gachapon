@@ -47,7 +47,6 @@ export class GachaService {
         options=[...options, ...weapons];
       }else{
         options=await this.weaponService.findAll();
-        console.log(options);
         options=options.filter((obj)=>obj.rarity==3);
       }
     }
@@ -80,9 +79,7 @@ export class GachaService {
         options=[...options, ...weapons];
       }else{
         options=await this.weaponService.findAll();
-        console.log(options);
         options=options.filter((obj)=>obj.rarity==3);
-        console.log(options);
       }
     }
     prob=randomInt(0, options.length-1);
@@ -102,10 +99,22 @@ export class GachaService {
   async addToAlmanac(id:string, elements: any[]){
     const user = await this.userService.findOne(id);
     const almanac = user.almanac;
-    elements.forEach(element => {
+    elements.forEach(async element => {
+      console.log(element._id);
+      console.log(element);
+      let elementToSave;
+      try{
+        elementToSave = await this.weaponService.findOne(element._id);
+        elementToSave = await this.characterService.findOne(element._id);
+      }catch(e){
+        
+      }
+      console.log(elementToSave);
       if (element instanceof Weapon ) {
+        console.log(element);
         almanac[0].push(element);
       } else if (element instanceof Character) {
+        console.log(element);
         almanac[1].push(element);
       }
     });
@@ -116,7 +125,7 @@ export class GachaService {
     updateUser.password = user.password;
     updateUser.rol = user.rol as Rol;
     updateUser.username = user.username;
-
+    
     return await this.userService.update(id, updateUser);
   }
 }

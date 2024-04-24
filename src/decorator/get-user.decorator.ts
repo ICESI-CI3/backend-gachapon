@@ -7,7 +7,7 @@ export  const GetUser = createParamDecorator(
         if (!user)
             throw new InternalServerErrorException('User not found');
 
-        return data ? user?.[data] : user;
+        return data ? user?.userId : user;
         //return user;
     }
 )

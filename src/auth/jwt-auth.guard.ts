@@ -27,6 +27,7 @@ export class RolAuthGuard extends JwtAuthGuard {
         const user = request.user;
     
         const allowed = roles.some(role => user.rol === role);
+
         if (!allowed) {
           throw new UnauthorizedException('You do not have permission to access this resource');
         }
