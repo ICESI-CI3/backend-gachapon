@@ -42,7 +42,7 @@ export class AuthService {
     
     const token = await this.jwtService.sign(payload);
     const data = {
-      user: findUser,
+      username: findUser.username,
       token, 
     };
 
