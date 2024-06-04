@@ -9,6 +9,7 @@ import { WeaponService } from '../weapon/weapon.service';
 import { UserService } from '../user/user.service';
 import { UpdateUserDto } from '../user/dto/update-user.dto';
 import Rol from '../user/entities/user.rol';
+import { HttpException, HttpStatus } from '@nestjs/common';
 
 @Injectable()
 export class GachaService {
@@ -35,6 +36,11 @@ export class GachaService {
   }
 
   async getOneCharacter(id : string){
+    const user = await this.userService.findOne(id);
+    const wishes=user.wishes
+    if(wishes<10){
+      throw new HttpException("Faltan deseos", 404)
+    }
     let options:any[] = await this.characterService.findAll();
     let prob=randomInt(0, 1000);
     if(prob<=6){
@@ -60,6 +66,11 @@ export class GachaService {
 
   async getTenCharacters(id : string){
     let result:any[]=[]
+    const user = await this.userService.findOne(id);
+    const wishes=user.wishes
+    if(wishes<10){
+      throw new HttpException("Faltan deseos", 404)
+    }
     for(let i=0;i<10;i++){
       result.push(await this.getOneCharacter(id));
     }
@@ -67,6 +78,11 @@ export class GachaService {
   }
 
   async getOneWeapon(id : string){
+    const user = await this.userService.findOne(id);
+    const wishes=user.wishes
+    if(wishes<1){
+      throw new HttpException("Faltan deseos", 404)
+    }
     let options:any[] = await this.weaponService.findAll();
     let prob=randomInt(0, 1000);
     if(prob<=6){
@@ -91,6 +107,11 @@ export class GachaService {
 
   async getTenWeapons(id : string){
     let result:any[]=[]
+    const user = await this.userService.findOne(id);
+    const wishes=user.wishes
+    if(wishes<10){
+      throw new HttpException("Faltan deseos", 404)
+    }
     for(let i=0;i<10;i++){
       result.push(await this.getOneWeapon(id));
     }
@@ -113,6 +134,12 @@ export class GachaService {
     updateUser.password = user.password;
     updateUser.rol = user.rol as Rol;
     updateUser.username = user.username;
+    updateUser.level_points=user.level_points+100;
+    updateUser.level=user.level;
+    if(updateUser.level_points==1000){
+      updateUser.level_points=0,
+      updateUser.level
+    }
     
     return await this.userService.update(id, updateUser);
   }

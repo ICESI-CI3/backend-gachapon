@@ -5,13 +5,12 @@ import Rol from "../entities/user.rol";
 export class CreateUserDto {
 
 
-    @IsNotEmpty()
+
     email: string;
 
-    @IsNotEmpty()
+
     username: string;
 
-    @IsNotEmpty()
     password: string;
 
     @IsNotEmpty()
@@ -20,4 +19,10 @@ export class CreateUserDto {
 
     @IsOptional()
     almanac: any[][];
+    @IsOptional()
+    level:number;
+    @IsOptional()
+    level_points:number;
+
+    wishes: number;
 }

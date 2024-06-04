@@ -22,6 +22,23 @@ export class UserService {
     return await this.userModule.findById(id).exec();
   }
 
+  async findByUsername(id: string) {
+    const userA=await this.userModule.find({"username":id}).exec();
+    let user =userA[0]
+    let userToSend={
+      "_id":user._id,
+      "username":user.username,
+      "almanac":user.almanac,
+      "rol":user.rol,
+      "level":user.level,
+      "level_points":user.level_points,
+      "wishes":user.wishes,
+      "email":user.email
+    }
+    return userToSend;
+  }
+
+
   async update(id: string, updateUserDto: UpdateUserDto) {
     return await this.userModule.findByIdAndUpdate(id,updateUserDto);
   }

@@ -5,7 +5,6 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard, RolAuthGuard } from '../auth/jwt-auth.guard';
 import { Roles } from '../decorator/rol.decorator';
 import { GetUser } from '../decorator/get-user.decorator';
-import { Types } from 'mongoose';
 
 @Controller('user')
 export class UserController {
@@ -27,7 +26,7 @@ export class UserController {
   @UseGuards(JwtAuthGuard, RolAuthGuard)
   @Roles(['ADMIN', 'PLAYER'])
   findOne(@Param('id') id: string) {
-    return this.userService.findOne(id);
+    return this.userService.findByUsername(id);
   }
 
   @Put(':id')

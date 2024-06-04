@@ -21,6 +21,16 @@ export class User extends Document{
 
   @Prop({ type: [[]], default: [] })
   almanac: any[][];
+
+  @Prop()
+  level: number;
+
+  @Prop()
+  level_points: number;
+  @Prop()
+  wishes: number;
+
+
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

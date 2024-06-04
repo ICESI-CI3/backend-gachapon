@@ -24,6 +24,9 @@ export class AuthService {
     userObject.username = userDto.username;
     userObject.password = plainToHash;
     userObject.rol = Rol.PLAYER;
+    userObject.level = 1;
+    userObject.level_points = 0;
+    userObject.wishes = 0;
     userObject.almanac = [[], []];
 
     return this.userModel.create(userObject);
@@ -50,6 +53,7 @@ export class AuthService {
   }
 
   private decodeToken(token: string){
+    console.log(token)
     return this.jwtService.decode(token);
   }
 }
